@@ -1,0 +1,23 @@
+ISA: Traffic-ASP (minimal)
+
+Registers: R0-R15 (R0 is always zero)
+
+Memory: byte-addressed memory for LW/SW (word size = 4 bytes)
+
+Instruction formats (assembly-like text):
+
+- ADD rd, rs, rt    ; rd = rs + rt
+- SUB rd, rs, rt    ; rd = rs - rt
+- LW rd, imm(rs)    ; rd = MEM[rs + imm]
+- SW rs, imm(rd)    ; MEM[rd + imm] = rs
+- BEQ rs, rt, label ; if (rs == rt) PC = label
+- J label           ; PC = label
+- OUT port, rs      ; write register value to an output port (simulated)
+- NOP               ; no-op
+
+Additional pseudo-op:
+- SET rd, imm       ; rd = imm (load immediate)
+
+Notes:
+- Immediate `imm` is a signed integer.
+- Labels are defined as `label:` at the start of a line.
