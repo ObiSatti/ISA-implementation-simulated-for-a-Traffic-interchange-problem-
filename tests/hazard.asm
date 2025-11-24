@@ -1,10 +1,6 @@
-# Load-use hazard micro-benchmark
-SET R15, 1
-SET R2, 0
-SET R3, 42
-SW R3, 0(R2)
-LW R4, 0(R2)
-ADD R5, R4, R15   # should forward/stall correctly
-OUT 0, R5
-
-
+SET R1, 0
+SET R5, 7
+SW R5, 0 ( R1 )
+LW R2, 0 ( R1 )
+ADD R3, R2, R2
+OUT 0, R3

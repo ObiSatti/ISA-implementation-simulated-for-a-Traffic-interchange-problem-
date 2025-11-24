@@ -1,7 +1,7 @@
 ASP Traffic-Light Simulator
 ===========================
 
-This project implements a small Application-Specific Processor (ASP) simulator tailored to a traffic-light interchange domain. It includes both a single-cycle model and a 5-stage pipelined model with hazard handling so that students can observe instruction-level behavior and compare performance.
+This project implements a small Application-Specific Processor (ASP) simulator tailored to a traffic-light interchange domain. It includes both a single-cycle model and a 5-stage pipelined model with hazard handling so that we can observe instruction-level behavior and compare performance.
 
 Highlights
 ----------
