@@ -1,15 +1,7 @@
-# Branching / control-flow sample
-SET R15, 1
-SET R1, 0          # accumulator
-SET R2, 3          # loop counter
-
-loop:
-ADD R1, R1, R15
-SUB R2, R2, R15
-BEQ R2, R0, done
-J loop
-
-done:
-OUT 0, R1
-
-
+SET R1, 0
+SET R2, 1
+BEQ R1, R2, skip
+SET R3, 9
+J end
+skip: SET R3, 42
+end: OUT 0, R3

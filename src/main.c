@@ -68,7 +68,7 @@ typedef struct {
     int result;
 } MEMWB;
 
-static bool writes_back(const Instr *ins){
+static bool writes_back(const Instr *ins){ //Hazard detection and forwarding
     switch(ins->type){
         case I_ADD:
         case I_SUB:
@@ -85,7 +85,7 @@ static int dest_reg(const Instr *ins){
     return ins->rd;
 }
 
-static bool uses_reg_source(const Instr *ins, int reg){
+static bool uses_reg_source(const Instr *ins, int reg){ //Load-use hazard detection
     if (reg < 0) return false;
     switch(ins->type){
         case I_ADD:
@@ -103,7 +103,7 @@ static bool uses_reg_source(const Instr *ins, int reg){
     }
 }
 
-static void reset_state(void){
+static void reset_state(void){ //clear the state of the pipeline
     memset(regfile,0,sizeof(regfile));
     memset(memory,0,sizeof(memory));
     memset(port_out,0,sizeof(port_out));
@@ -126,18 +126,18 @@ int reg_index(const char *tok){
     return -1;
 }
 
-int find_label(const char *name){
+int find_label(const char *name){ //find the address of a label
     for(int i=0;i<labels_count;i++) if (strcmp(labels[i].name,name)==0) return labels[i].addr;
     return -1;
 }
 
-void add_label(const char *name,int addr){
+void add_label(const char *name,int addr){ //add a label to the list of labels
     strncpy(labels[labels_count].name,name,63);
     labels[labels_count].addr = addr;
     labels_count++;
 }
 
-void parse_file(const char *path){
+void parse_file(const char *path){ //parse the file and add the labels to the list of labels
     labels_count = 0;
     FILE *f = fopen(path,"r");
     if (!f){ perror(path); exit(1);} 
@@ -258,7 +258,8 @@ static void print_stage_instr(const Instr *if_ins, const IFID *ifid, const IDEX 
     printf("IF:[%s] | ID:[%s] | EX:[%s] | MEM:[%s] | WB:[%s]\n", sif, sid, sex, sm, swb);
 }
 
-void run_pipelined(long max_cycles){
+void run_pipelined(long max_cycles){ //WB → MEM → EX → ID → IF
+
     reset_state();
     IFID ifid = {0};
     IDEX idex = {0};
